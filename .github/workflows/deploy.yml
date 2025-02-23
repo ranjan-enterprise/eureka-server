@@ -57,8 +57,8 @@ jobs:
           echo "Deploying the service on host ${{ secrets.HOSTINGER_HOST }}"
           echo "Deploying the service using user ${{ secrets.HOSTINGER_USER }}"
           echo "Deploying the service at path ${{ secrets.HOSTINGER_PATH }}"
-          scp target/*.jar ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH }}/app.jar
-          ssh ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} "bash -s" << 'EOF'
+          scp target/*.jar appuser@147.93.84.18:/opt/applications/java/app.jar
+          ssh appuser@147.93.84.18 "bash -s" << 'EOF'
             pkill -f 'java -jar'
-            nohup java -jar ${{ secrets.HOSTINGER_PATH }}/app.jar > app.log 2>&1 &
+            nohup java -jar /opt/applications/java/app.jar > app.log 2>&1 &
           EOF
