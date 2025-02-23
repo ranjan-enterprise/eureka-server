@@ -54,6 +54,9 @@ jobs:
 
       - name: Deploy to Hostinger
         run: |
+          echo "Deploying the service on host ${{ secrets.HOSTINGER_HOST }}"
+          echo "Deploying the service using user ${{ secrets.HOSTINGER_USER }}"
+          echo "Deploying the service at path ${{ secrets.HOSTINGER_PATH }}"
           scp target/*.jar ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH }}/app.jar
           ssh ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} "bash -s" << 'EOF'
             pkill -f 'java -jar'
