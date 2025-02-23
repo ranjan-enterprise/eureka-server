@@ -45,12 +45,12 @@ jobs:
           name: eureka-server
           path: target/
 
-      - name: Setup SSH Key
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
+#      - name: Setup SSH Key
+#        run: |
+#          mkdir -p ~/.ssh/
+#          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+#          chmod 600 ~/.ssh/id_rsa
+#          ssh-keyscan -H ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to Hostinger
         run: |
