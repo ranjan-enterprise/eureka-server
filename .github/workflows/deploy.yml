@@ -53,15 +53,15 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "$HOSTINGER_SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ HOSTINGER_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H $HOSTINGER_HOST >> ~/.ssh/known_hosts
 
       - name: Deploy to Hostinger
         run: |
-          echo "Deploying the service on host ${{ HOSTINGER_USER }}"
-          scp target/*.jar ${{ HOSTINGER_USER }}@${{ HOSTINGER_HOST }}:${{ HOSTINGER_PATH }}/app.jar
-          ssh ${{ HOSTINGER_USER }}@${{ HOSTINGER_HOST }} "bash -s" << 'EOF'
+          echo "Deploying the service on host $HOSTINGER_USER"
+          scp target/*.jar $HOSTINGER_USER@$HOSTINGER_HOST:$HOSTINGER_PATH/app.jar
+          ssh $HOSTINGER_USER@$HOSTINGER_HOST "bash -s" << 'EOF'
             pkill -f 'java -jar'
-            nohup java -jar ${{ HOSTINGER_PATH }}/app.jar > app.log 2>&1 &
+            nohup java -jar $HOSTINGER_PATH/app.jar > app.log 2>&1 &
           EOF
